@@ -42,32 +42,32 @@
 
       <!-- Action Buttons Header -->
       <div class="flex items-center space-x-2 overflow-x-auto py-1 custom-scrollbar">
-        <label class="bg-gradient-to-r from-amber-500 to-amber-400 hover:from-amber-600 hover:to-amber-500 text-indigo-950 font-bold px-3 py-2 rounded-xl text-xs cursor-pointer transition-all duration-200 flex items-center space-x-1.5 shadow-md shadow-amber-500/10 flex-shrink-0 active:scale-95">
+        <button onclick="triggerFileInput('fileMassal')" class="bg-gradient-to-r from-amber-500 to-amber-400 hover:from-amber-600 hover:to-amber-500 text-indigo-950 font-bold px-3 py-2 rounded-xl text-xs cursor-pointer transition-all duration-200 flex items-center space-x-1.5 shadow-md shadow-amber-500/10 flex-shrink-0 active:scale-95">
           <i class="fa-solid fa-file-excel text-sm"></i>
           <span>Impor Massal 1-File XLSM</span>
-          <input type="file" accept=".xlsm,.xlsx,.xls" class="hidden" onchange="importExcelMass(event)">
-        </label>
+        </button>
+        <input type="file" id="fileMassal" accept=".xlsm,.xlsx,.xls" class="hidden" onchange="importExcelMass(event)">
 
-        <label class="bg-indigo-900/90 hover:bg-indigo-800 text-white font-semibold px-2.5 py-2 rounded-xl text-xs cursor-pointer transition flex items-center space-x-1.5 border border-indigo-700/50 flex-shrink-0">
+        <button onclick="triggerFileInput('fileProfil')" class="bg-indigo-900/90 hover:bg-indigo-800 text-white font-semibold px-2.5 py-2 rounded-xl text-xs cursor-pointer transition flex items-center space-x-1.5 border border-indigo-700/50 flex-shrink-0">
           <i class="fa-solid fa-school text-amber-300"></i>
           <span class="hidden sm:inline">Impor Profil (.xlsx)</span>
           <span class="sm:hidden">Profil</span>
-          <input type="file" accept=".xlsx,.xls,.csv" class="hidden" onchange="importExcelProfil(event)">
-        </label>
+        </button>
+        <input type="file" id="fileProfil" accept=".xlsx,.xls,.csv" class="hidden" onchange="importExcelProfil(event)">
 
-        <label class="bg-indigo-900/90 hover:bg-indigo-800 text-white font-semibold px-2.5 py-2 rounded-xl text-xs cursor-pointer transition flex items-center space-x-1.5 border border-indigo-700/50 flex-shrink-0">
+        <button onclick="triggerFileInput('filePd')" class="bg-indigo-900/90 hover:bg-indigo-800 text-white font-semibold px-2.5 py-2 rounded-xl text-xs cursor-pointer transition flex items-center space-x-1.5 border border-indigo-700/50 flex-shrink-0">
           <i class="fa-solid fa-user-plus text-amber-300"></i>
           <span class="hidden sm:inline">Impor PD (.xlsx)</span>
           <span class="sm:hidden">PD</span>
-          <input type="file" accept=".xlsx,.xls,.csv" class="hidden" onchange="importExcelPd(event)">
-        </label>
+        </button>
+        <input type="file" id="filePd" accept=".xlsx,.xls,.csv" class="hidden" onchange="importExcelPd(event)">
 
-        <label class="bg-indigo-900/90 hover:bg-indigo-800 text-white font-semibold px-2.5 py-2 rounded-xl text-xs cursor-pointer transition flex items-center space-x-1.5 border border-indigo-700/50 flex-shrink-0">
+        <button onclick="triggerFileInput('filePtk')" class="bg-indigo-900/90 hover:bg-indigo-800 text-white font-semibold px-2.5 py-2 rounded-xl text-xs cursor-pointer transition flex items-center space-x-1.5 border border-indigo-700/50 flex-shrink-0">
           <i class="fa-solid fa-chalkboard-user text-amber-300"></i>
           <span class="hidden sm:inline">Impor PTK (.xlsx)</span>
           <span class="sm:hidden">PTK</span>
-          <input type="file" accept=".xlsx,.xls,.csv" class="hidden" onchange="importExcelPtk(event)">
-        </label>
+        </button>
+        <input type="file" id="filePtk" accept=".xlsx,.xls,.csv" class="hidden" onchange="importExcelPtk(event)">
 
         <button onclick="confirmResetData()" class="bg-red-950/80 hover:bg-red-900 text-red-300 font-bold px-3 py-2 rounded-xl text-xs transition flex items-center space-x-1.5 border border-red-800/50 flex-shrink-0" title="Kosongkan Seluruh Data">
           <i class="fa-solid fa-trash-can"></i>
@@ -1114,6 +1114,16 @@
       } else {
         showToast("Kode Akses salah!", "error");
       }
+    }
+
+    // TRIGGER FILE INPUT (LOCK PROTECTED)
+    function triggerFileInput(inputId) {
+      if (!isUnlocked) {
+        showToast("Akses Terkunci. Masukkan kode untuk menggunakan fitur ini.", "error");
+        toggleAccessModal();
+        return;
+      }
+      document.getElementById(inputId).click();
     }
 
     // TOAST NOTIFICATION
